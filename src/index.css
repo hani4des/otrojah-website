@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#fbfcfa] text-slate-800 font-tajawal antialiased transition-colors duration-300;
+    font-feature-settings: "ss01", "ss02", "cv01";
+  }
+
+  .dark body {
+    @apply bg-[#07170f] text-slate-100;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-alexandria tracking-tight;
+  }
+}
+
+/* Font Zoom Levels */
+html.font-zoom--1 {
+  font-size: 88%;
+}
+html.font-zoom-0 {
+  font-size: 100%;
+}
+html.font-zoom-1 {
+  font-size: 112%;
+}
+html.font-zoom-2 {
+  font-size: 125%;
+}
+
+/* Custom Islamic Geometry and Aesthetics */
+.islamic-border {
+  border-image: linear-gradient(to right, #1b633e, #c59b27, #1b633e) 1;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #b0821d 0%, #ddb753 50%, #8c6218 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.emerald-gradient-text {
+  background: linear-gradient(135deg, #092719 0%, #1b633e 50%, #22754c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-luxury {
+  @apply bg-white dark:bg-[#0c2417] dark:border-emerald-800/40 rounded-2xl border border-emerald-900/10 shadow-sm transition-all duration-300 hover:shadow-luxury hover:border-utrujjah-gold-500/40 hover:-translate-y-1;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-md active:scale-95 text-white bg-gradient-to-r from-utrujjah-green-800 via-utrujjah-green-700 to-utrujjah-green-800 hover:from-utrujjah-green-900 hover:to-utrujjah-green-700 hover:shadow-green-glow;
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-md active:scale-95 text-slate-900 bg-gradient-to-r from-utrujjah-gold-400 via-utrujjah-gold-300 to-utrujjah-gold-500 hover:from-utrujjah-gold-300 hover:to-utrujjah-gold-600 hover:shadow-gold-glow;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold border border-emerald-800/20 text-emerald-900 dark:text-emerald-300 bg-emerald-50/50 dark:bg-emerald-950/40 hover:bg-emerald-100/60 transition-all duration-200 active:scale-95;
+}
+
+/* ========================================================
+   Floating Fluttering Leaves Animation for Logo Circle
+   ======================================================== */
+@keyframes flutterLeaf1 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.9);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(-18px, -24px) rotate(25deg) scale(1.05);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-8px, -45px) rotate(-15deg) scale(0.95);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translate(14px, -28px) rotate(35deg) scale(1.02);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+@keyframes flutterLeaf2 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.85;
+  }
+  30% {
+    transform: translate(25px, -15px) rotate(-30deg) scale(1.1);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(12px, -35px) rotate(20deg) scale(0.9);
+    opacity: 0.9;
+  }
+  85% {
+    transform: translate(-10px, -18px) rotate(-20deg) scale(1.05);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.85;
+  }
+}
+
+@keyframes flutterLeaf3 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.85);
+    opacity: 0.75;
+  }
+  35% {
+    transform: translate(-20px, 20px) rotate(45deg) scale(1);
+    opacity: 0.95;
+  }
+  70% {
+    transform: translate(-35px, -10px) rotate(-10deg) scale(0.9);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(0.85);
+    opacity: 0.75;
+  }
+}
+
+@keyframes orbitGentle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-flutter-1 {
+  animation: flutterLeaf1 6.5s ease-in-out infinite;
+}
+
+.animate-flutter-2 {
+  animation: flutterLeaf2 7.8s ease-in-out infinite;
+}
+
+.animate-flutter-3 {
+  animation: flutterLeaf3 8.2s ease-in-out infinite;
+}
+
+.animate-orbit-gentle {
+  animation: orbitGentle 24s linear infinite;
+}
+
+/* Print Styles for Official Receipt */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: white;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
