@@ -10,17 +10,17 @@ export default {
       colors: {
         utrujjah: {
           green: {
-            50: '#f0f8f3',
-            100: '#dcf0e3',
-            200: '#bbe1c9',
-            300: '#8dcba6',
-            400: '#58ae7f',
-            500: '#349260',
-            600: '#22754c',
-            700: '#1b633e',
-            800: '#164f33',
-            900: '#12422b',
-            950: '#092719',
+            50: 'rgb(var(--color-brand-50, 240 248 243) / <alpha-value>)',
+            100: 'rgb(var(--color-brand-100, 220 240 227) / <alpha-value>)',
+            200: 'rgb(var(--color-brand-200, 187 225 201) / <alpha-value>)',
+            300: 'rgb(var(--color-brand-300, 141 203 166) / <alpha-value>)',
+            400: 'rgb(var(--color-brand-400, 88 174 127) / <alpha-value>)',
+            500: 'rgb(var(--color-brand-500, 52 146 96) / <alpha-value>)',
+            600: 'rgb(var(--color-brand-600, 34 117 76) / <alpha-value>)',
+            700: 'rgb(var(--color-brand-700, 27 99 62) / <alpha-value>)',
+            800: 'rgb(var(--color-brand-800, 22 79 51) / <alpha-value>)',
+            900: 'rgb(var(--color-brand-900, 18 66 43) / <alpha-value>)',
+            950: 'rgb(var(--color-brand-950, 9 39 25) / <alpha-value>)',
           },
           gold: {
             50: '#fdfaf2',
