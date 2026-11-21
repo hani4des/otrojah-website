@@ -12,7 +12,12 @@ import {
   Calculator,
   Moon,
   Sun,
-  Type
+  Type,
+  Radio,
+  Palette,
+  BookOpen,
+  Target,
+  Newspaper
 } from 'lucide-react';
 import {
   TikTokIcon,
@@ -33,7 +38,9 @@ export default function Header() {
     fontZoom,
     increaseFontSize,
     decreaseFontSize,
-    resetFontSize
+    resetFontSize,
+    colorTheme,
+    changeColorTheme
   } = useApp();
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,17 +55,19 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { id: 'home', label: 'الرئيسية' },
-    { id: 'about', label: 'عن أترجة' },
-    { id: 'activities', label: 'الأنشطة' },
-    { id: 'telegram', label: 'قناة التليجرام' },
-    { id: 'programs', label: 'برامجنا' },
-    { id: 'projects', label: 'المشاريع' },
-    { id: 'zakat', label: 'حاسبة الزكاة' },
-    { id: 'media', label: 'المركز الإعلامي' },
-    { id: 'contact', label: 'تواصل معنا' },
-    { id: 'privacy', label: 'سياسة الخصوصية' },
+    { id: 'about', label: 'عن أترجة', icon: Sparkles, iconColor: 'text-utrujjah-gold-500' },
+    { id: 'activities', label: 'الأنشطة', icon: Radio, iconColor: 'text-rose-500' },
+    { id: 'telegram', label: 'قناة التليجرام', icon: TelegramIcon, iconColor: 'text-sky-500' },
+    { id: 'designs', label: 'تصاميم', icon: Palette, iconColor: 'text-amber-500' },
+    { id: 'programs', label: 'برامجنا', icon: BookOpen, iconColor: 'text-emerald-500' },
+    { id: 'projects', label: 'المشاريع', icon: Target, iconColor: 'text-teal-500' },
+    { id: 'media', label: 'المركز الإعلامي', icon: Newspaper, iconColor: 'text-utrujjah-gold-500' },
   ];
+
+  const visibleNavLinks = navLinks.filter(link => {
+    if (!teamData?.headerSectionsEnabled) return true;
+    return teamData.headerSectionsEnabled[link.id] !== false;
+  });
 
   const handleNavClick = (pageId) => {
     navigateTo(pageId);
@@ -138,9 +147,35 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Left: Accessibility (Font Zoom + Theme Toggle) & Admin */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Left: Accessibility (Font Zoom + Color Palette + Theme Toggle) & Admin */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
             
+            {/* Color Theme Selector (Item 11) */}
+            <div className="flex items-center gap-1.5 bg-white/10 rounded-lg px-2 py-1 border border-white/15" title="تغيير ألوان هوية الموقع">
+              <span className="text-[10px] text-utrujjah-gold-300 font-bold hidden md:inline ml-1">المظهر:</span>
+              <button
+                onClick={() => changeColorTheme('emerald')}
+                className={`w-3.5 h-3.5 rounded-full bg-[#1b633e] transition-transform ${
+                  colorTheme === 'emerald' ? 'ring-2 ring-utrujjah-gold-400 scale-125' : 'opacity-60 hover:opacity-100'
+                }`}
+                title="اللون الزمردي الملكي (الأصلي)"
+              />
+              <button
+                onClick={() => changeColorTheme('navy')}
+                className={`w-3.5 h-3.5 rounded-full bg-[#1d5786] transition-transform ${
+                  colorTheme === 'navy' ? 'ring-2 ring-utrujjah-gold-400 scale-125' : 'opacity-60 hover:opacity-100'
+                }`}
+                title="اللون الكحلي الملكي"
+              />
+              <button
+                onClick={() => changeColorTheme('ruby')}
+                className={`w-3.5 h-3.5 rounded-full bg-[#8f2139] transition-transform ${
+                  colorTheme === 'ruby' ? 'ring-2 ring-utrujjah-gold-400 scale-125' : 'opacity-60 hover:opacity-100'
+                }`}
+                title="اللون العنابي الياقوتي"
+              />
+            </div>
+
             {/* Font Zoom Controls */}
             <div className="flex items-center bg-white/10 rounded-lg p-0.5 border border-white/15" title="التحكم بحجم الخط">
               <button
@@ -224,23 +259,33 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden xl:flex items-center gap-1">
-              {navLinks.map((link) => {
+            {/* Desktop Navigation Links (With Color Hover, Active Feedback & Matching Icons) */}
+            <div className="hidden xl:flex items-center gap-1.5">
+              {visibleNavLinks.map((link) => {
                 const isActive = currentPage === link.id;
+                const Icon = link.icon;
                 return (
                   <button
                     key={link.id}
                     onClick={() => handleNavClick(link.id)}
-                    className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 relative whitespace-nowrap ${
+                    className={`group px-3 py-2 rounded-xl text-sm xl:text-[14px] 2xl:text-[15px] font-bold transition-all duration-200 relative whitespace-nowrap flex items-center gap-1.5 border select-none ${
                       isActive
-                        ? 'text-utrujjah-green-900 dark:text-utrujjah-gold-300 font-bold bg-emerald-50 dark:bg-white/10'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-utrujjah-green-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5'
+                        ? 'bg-gradient-to-r from-utrujjah-green-900 to-utrujjah-green-800 text-utrujjah-gold-300 dark:from-utrujjah-green-950 dark:to-utrujjah-green-900 dark:text-utrujjah-gold-300 font-extrabold shadow-md shadow-utrujjah-green-950/20 border-utrujjah-gold-500/50 ring-1 ring-utrujjah-gold-500/30'
+                        : 'text-slate-700 dark:text-slate-200 border-transparent hover:bg-gradient-to-r hover:from-utrujjah-green-900 hover:to-utrujjah-green-800 hover:text-utrujjah-gold-300 dark:hover:from-utrujjah-green-950 dark:hover:to-utrujjah-green-900 dark:hover:text-utrujjah-gold-300 hover:border-utrujjah-gold-500/40 hover:shadow-md hover:shadow-utrujjah-green-950/25 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 active:bg-utrujjah-green-950 active:text-amber-400'
                     }`}
                   >
-                    {link.label}
+                    {Icon && (
+                      <Icon
+                        className={`w-4 h-4 transition-all duration-200 group-hover:scale-110 group-hover:rotate-3 ${
+                          isActive
+                            ? 'text-utrujjah-gold-300'
+                            : `${link.iconColor} group-hover:text-utrujjah-gold-300`
+                        }`}
+                      />
+                    )}
+                    <span>{link.label}</span>
                     {isActive && (
-                      <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-utrujjah-green-700 to-utrujjah-gold-500 rounded-full" />
+                      <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-utrujjah-gold-400 to-amber-300 rounded-full shadow-gold-glow" />
                     )}
                   </button>
                 );
@@ -249,17 +294,19 @@ export default function Header() {
 
             {/* Action Buttons: Donate CTA & Mobile Hamburger */}
             <div className="flex items-center gap-2">
-              {/* Standout "تبرع الآن" Button */}
-              <button
-                onClick={() => handleNavClick('donate')}
-                className="relative group overflow-hidden rounded-xl p-[2px] focus:outline-none focus:ring-2 focus:ring-utrujjah-gold-400 focus:ring-offset-2 transition-transform duration-200 active:scale-95 shadow-md shadow-utrujjah-green-900/15"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-utrujjah-green-800 via-utrujjah-gold-500 to-utrujjah-green-900 rounded-xl transition-all group-hover:opacity-90" />
-                <div className="relative px-4 py-2 bg-gradient-to-r from-utrujjah-green-800 to-utrujjah-green-900 text-white rounded-[10px] font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-colors group-hover:from-utrujjah-green-700 group-hover:to-utrujjah-green-800">
-                  <Heart className="w-3.5 h-3.5 fill-utrujjah-gold-400 text-utrujjah-gold-400 animate-pulse" />
-                  <span>تبرع الآن</span>
-                </div>
-              </button>
+              {/* Standout "تبرع الآن" Button (Item 1: Controlled via Admin Dashboard) */}
+              {teamData?.showDonateButton !== false && (
+                <button
+                  onClick={() => handleNavClick('donate')}
+                  className="relative group overflow-hidden rounded-xl p-[2px] focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 transition-transform duration-200 active:scale-95 shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 rounded-xl animate-pulse" />
+                  <div className="relative px-4 py-2 bg-gradient-to-r from-amber-500 via-utrujjah-gold-400 to-amber-500 text-slate-950 rounded-[10px] font-black text-xs sm:text-sm flex items-center gap-1.5 transition-all group-hover:brightness-105">
+                    <Heart className="w-4 h-4 fill-rose-600 text-rose-600 animate-bounce" />
+                    <span className="font-alexandria font-bold">تبرع الآن</span>
+                  </div>
+                </button>
+              )}
 
               {/* Mobile menu trigger */}
               <button
@@ -277,42 +324,52 @@ export default function Header() {
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="xl:hidden border-t border-slate-100 dark:border-emerald-800/40 bg-white/98 dark:bg-[#071910]/98 backdrop-blur-lg px-4 pt-3 pb-6 shadow-xl animate-fadeIn">
-            <div className="flex flex-col gap-1">
-              {navLinks.map((link) => {
+            <div className="flex flex-col gap-1.5">
+              {visibleNavLinks.map((link) => {
                 const isActive = currentPage === link.id;
+                const Icon = link.icon;
                 return (
                   <button
                     key={link.id}
                     onClick={() => handleNavClick(link.id)}
-                    className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 group border ${
                       isActive
-                        ? 'bg-utrujjah-green-50 dark:bg-white/10 text-utrujjah-green-800 dark:text-utrujjah-gold-300 font-bold border-r-4 border-utrujjah-gold-500'
-                        : 'text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5'
+                        ? 'bg-gradient-to-r from-utrujjah-green-900 to-utrujjah-green-800 text-utrujjah-gold-300 border-utrujjah-gold-500/40 shadow-sm'
+                        : 'text-slate-700 dark:text-slate-200 border-transparent hover:bg-gradient-to-r hover:from-utrujjah-green-900 hover:to-utrujjah-green-800 hover:text-utrujjah-gold-300 dark:hover:from-utrujjah-green-950 dark:hover:to-utrujjah-green-900 dark:hover:text-utrujjah-gold-300 hover:border-utrujjah-gold-500/30 hover:shadow-md active:scale-[0.98]'
                     }`}
                   >
-                    <span>{link.label}</span>
-                    {isActive && <span className="w-2 h-2 rounded-full bg-utrujjah-gold-500"></span>}
+                    <div className="flex items-center gap-2.5">
+                      {Icon && (
+                        <Icon
+                          className={`w-4 h-4 transition-transform duration-200 group-hover:scale-110 ${
+                            isActive
+                              ? 'text-utrujjah-gold-300'
+                              : `${link.iconColor} group-hover:text-utrujjah-gold-300`
+                          }`}
+                        />
+                      )}
+                      <span>{link.label}</span>
+                    </div>
+                    {isActive ? (
+                      <span className="w-2 h-2 rounded-full bg-utrujjah-gold-400 shadow-gold-glow animate-pulse"></span>
+                    ) : (
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-utrujjah-gold-400 transition-colors"></span>
+                    )}
                   </button>
                 );
               })}
 
-              <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/10 flex flex-col gap-2">
-                <button
-                  onClick={() => handleNavClick('donate')}
-                  className="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-utrujjah-green-800 to-utrujjah-green-700 shadow-md flex items-center justify-center gap-2"
-                >
-                  <Heart className="w-4 h-4 fill-utrujjah-gold-400 text-utrujjah-gold-400" />
-                  <span>ساهم وتبرع الآن</span>
-                </button>
-                
-                <button
-                  onClick={() => handleNavClick('zakat')}
-                  className="w-full py-2.5 rounded-xl font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 flex items-center justify-center gap-2"
-                >
-                  <Calculator className="w-4 h-4 text-utrujjah-gold-600" />
-                  <span>حاسبة الزكاة الشرعية</span>
-                </button>
-              </div>
+              {teamData?.showDonateButton !== false && (
+                <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/10 flex flex-col gap-2">
+                  <button
+                    onClick={() => handleNavClick('donate')}
+                    className="w-full py-3.5 rounded-xl font-black text-slate-950 bg-gradient-to-r from-amber-400 via-utrujjah-gold-400 to-amber-500 shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 border border-amber-300 active:scale-95 transition-all"
+                  >
+                    <Heart className="w-4 h-4 fill-rose-600 text-rose-600 animate-bounce" />
+                    <span className="font-alexandria font-bold">ساهم وتبرع الآن</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}

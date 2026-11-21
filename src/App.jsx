@@ -2,8 +2,10 @@ import React from 'react';
 import { useApp } from './context/AppContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ShareBar from './components/ShareBar';
 import ReceiptModal from './components/ReceiptModal';
 import DetailModals from './components/DetailModals';
+import WelcomeModal from './components/WelcomeModal';
 import Toast from './components/Toast';
 
 // Pages
@@ -16,6 +18,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import DonatePage from './pages/DonatePage';
 import ZakatPage from './pages/ZakatPage';
 import MediaPage from './pages/MediaPage';
+import DesignsPage from './pages/DesignsPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
 import AdminDashboard from './pages/AdminDashboard';
@@ -33,6 +36,8 @@ export default function App() {
         return <ActivitiesPage />;
       case 'telegram':
         return <TelegramPage />;
+      case 'designs':
+        return <DesignsPage />;
       case 'programs':
         return <ProgramsPage />;
       case 'projects':
@@ -64,10 +69,14 @@ export default function App() {
         {renderCurrentPage()}
       </main>
 
+      {/* Share Bar: Helping visitors share the good work at bottom of pages */}
+      {currentPage !== 'admin' && <ShareBar />}
+
       {/* Footer */}
       <Footer />
 
       {/* Official Interactive Modals */}
+      <WelcomeModal />
       <ReceiptModal />
       <DetailModals />
 

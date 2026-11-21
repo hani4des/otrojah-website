@@ -43,7 +43,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-slate-200 font-tajawal max-w-2xl mx-auto leading-relaxed">
-            منظومة عمل خيري ومؤسسي تسعى إلى ترك بصمة إيمانية وإنسانية مضيئة في مجتمعنا، تأسست وفق رؤية عصرية ترتكز على إتقان العطاء.
+            {teamData.aboutText || "منظومة عمل تطوعي ومؤسسي تسعى إلى ترك بصمة إيمانية وإنسانية مضيئة في مجتمعنا، تأسست وفق رؤية عصرية ترتكز على إتقان العطاء وخدمة كتاب الله."}
           </p>
 
           <div className="pt-2">

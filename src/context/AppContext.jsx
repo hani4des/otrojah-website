@@ -9,7 +9,9 @@ import {
   initialProjects,
   initialMedia,
   initialDonations,
-  initialContactMessages
+  initialContactMessages,
+  initialDesigns,
+  initialAdmins
 } from '../data/initialData';
 
 const AppContext = createContext();
@@ -22,7 +24,51 @@ export const AppProvider = ({ children }) => {
   // Persistent States in LocalStorage
   const [teamData, setTeamData] = useState(() => {
     const saved = localStorage.getItem('utrujjah_team_data');
-    return saved ? JSON.parse(saved) : initialTeamData;
+    if (!saved) return initialTeamData;
+    try {
+      const parsed = JSON.parse(saved);
+      return {
+        ...initialTeamData,
+        ...parsed,
+        aboutText: parsed.aboutText || initialTeamData.aboutText,
+        footerDesc: parsed.footerDesc || initialTeamData.footerDesc,
+        privacyPolicy: parsed.privacyPolicy || initialTeamData.privacyPolicy,
+        socialEnabled: parsed.socialEnabled || initialTeamData.socialEnabled,
+        showDonateButton: parsed.showDonateButton !== undefined ? parsed.showDonateButton : initialTeamData.showDonateButton,
+        headerSectionsEnabled: {
+          ...initialTeamData.headerSectionsEnabled,
+          ...(parsed.headerSectionsEnabled || {})
+        },
+        ticker: {
+          ...initialTeamData.ticker,
+          ...(parsed.ticker || {})
+        },
+        liveBroadcast: {
+          ...initialTeamData.liveBroadcast,
+          ...(parsed.liveBroadcast || {})
+        },
+        shareBar: {
+          ...initialTeamData.shareBar,
+          ...(parsed.shareBar || {}),
+          channels: {
+            ...(initialTeamData.shareBar?.channels || {}),
+            ...(parsed.shareBar?.channels || {})
+          }
+        },
+        welcomeModal: {
+          ...initialTeamData.welcomeModal,
+          ...(parsed.welcomeModal || {})
+        }
+      };
+    } catch (e) {
+      return initialTeamData;
+    }
+  });
+
+  // Admin Users List (Item 2: Control & Add Admins)
+  const [admins, setAdmins] = useState(() => {
+    const saved = localStorage.getItem('utrujjah_admins');
+    return saved ? JSON.parse(saved) : initialAdmins;
   });
 
   const [projects, setProjects] = useState(() => {
@@ -73,6 +119,18 @@ export const AppProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : initialStats;
   });
 
+  // Islamic Reminder Designs (Item 3)
+  const [designs, setDesigns] = useState(() => {
+    const saved = localStorage.getItem('utrujjah_designs');
+    return saved ? JSON.parse(saved) : initialDesigns;
+  });
+
+  // Color Theme (Item 11: emerald, navy, ruby)
+  const [colorTheme, setColorTheme] = useState(() => {
+    const saved = localStorage.getItem('utrujjah_color_theme');
+    return saved || 'emerald';
+  });
+
   // Modals & Popups
   const [activeModal, setActiveModal] = useState(null); // 'receipt', 'project-details', 'program-details', 'quick-donate'
   const [modalData, setModalData] = useState(null);
@@ -115,8 +173,24 @@ export const AppProvider = ({ children }) => {
     document.documentElement.classList.add(`font-zoom-${fontZoom}`);
   }, [fontZoom]);
 
+  // Apply Brand Color Theme to document root
+  useEffect(() => {
+    localStorage.setItem('utrujjah_color_theme', colorTheme);
+    document.documentElement.classList.remove('color-theme-emerald', 'color-theme-navy', 'color-theme-ruby');
+    document.documentElement.classList.add(`color-theme-${colorTheme}`);
+  }, [colorTheme]);
+
+  useEffect(() => {
+    localStorage.setItem('utrujjah_designs', JSON.stringify(designs));
+  }, [designs]);
+
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const changeColorTheme = (themeName) => {
+    setColorTheme(themeName);
+    showToast(`تم تغيير مظهر ألوان الموقع إلى: ${themeName === 'emerald' ? 'الأخضر الزمردي' : themeName === 'navy' ? 'الكحلي الملكي' : 'العنابي الياقوتي'}`);
   };
 
   const increaseFontSize = () => {
@@ -151,6 +225,14 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('utrujjah_admin_auth', JSON.stringify(adminAuth));
   }, [adminAuth]);
+
+  useEffect(() => {
+    localStorage.setItem('utrujjah_admins', JSON.stringify(admins));
+  }, [admins]);
+
+  useEffect(() => {
+    localStorage.setItem('utrujjah_team_data', JSON.stringify(teamData));
+  }, [teamData]);
 
   // Toast helper
   const showToast = (message, type = 'success') => {
@@ -251,14 +333,23 @@ export const AppProvider = ({ children }) => {
     return newMsg;
   };
 
-  // Admin Functions
+  // Admin Functions (Item 2: Control & Add Admins)
   const loginAdmin = (usernameOrEmail, password) => {
-    // Default admin credentials: admin@utrujjah.org.sa / admin123
-    if (
+    // Check against dynamic admins list or master fallback
+    const matched = (admins || []).find(
+      a => (a.username.toLowerCase() === usernameOrEmail.toLowerCase() || (a.email && a.email.toLowerCase() === usernameOrEmail.toLowerCase())) && a.password === password
+    );
+
+    if (matched) {
+      const auth = { isAuthenticated: true, user: matched };
+      setAdminAuth(auth);
+      showToast(`مرحباً بك يا ${matched.name}، تم تسجيل الدخول بنجاح`, 'success');
+      return true;
+    } else if (
       (usernameOrEmail === 'admin@utrujjah.org.sa' || usernameOrEmail === 'admin') &&
       password === 'admin123'
     ) {
-      const auth = { isAuthenticated: true, user: { name: 'المشرف العام لفريق أترجة', role: 'admin', email: 'admin@utrujjah.org.sa' } };
+      const auth = { isAuthenticated: true, user: { name: 'المشرف العام لفريق أترجة', role: 'مدير عام النظام', username: 'admin@utrujjah.org.sa' } };
       setAdminAuth(auth);
       showToast('مرحباً بك في لوحة تحكم فريق أترجة', 'success');
       return true;
@@ -266,6 +357,30 @@ export const AppProvider = ({ children }) => {
       showToast('بيانات الدخول غير صحيحة، يرجى التحقق من اسم المستخدم وكلمة المرور', 'error');
       return false;
     }
+  };
+
+  const addAdmin = (adminData) => {
+    const newAdmin = {
+      id: `admin-${Date.now()}`,
+      name: adminData.name || 'مشرف جديد',
+      username: adminData.username || `admin_${Date.now()}`,
+      password: adminData.password || '123456',
+      role: adminData.role || 'مشرف محتوى',
+      createdAt: new Date().toISOString().split('T')[0]
+    };
+    setAdmins(prev => [...prev, newAdmin]);
+    showToast(`تمت إضافة المشرف "${newAdmin.name}" بنجاح!`);
+    return newAdmin;
+  };
+
+  const deleteAdmin = (adminId) => {
+    if ((admins || []).length <= 1) {
+      showToast('لا يمكن حذف المشرف الأخير في النظام.', 'error');
+      return false;
+    }
+    setAdmins(prev => prev.filter(a => a.id !== adminId));
+    showToast('تم حذف المشرف بنجاح.');
+    return true;
   };
 
   const logoutAdmin = () => {
@@ -314,6 +429,28 @@ export const AppProvider = ({ children }) => {
     showToast('تم حذف المادة الإعلامية');
   };
 
+  // Designs Management (Item 3 & Item 10)
+  const addDesign = (designInput) => {
+    const newDesign = {
+      id: `design-${Date.now()}`,
+      title: designInput.title || 'تصميم إسلامي تذكيري',
+      category: designInput.category || 'القرآن والذكر',
+      type: designInput.type || 'حديث نبوي شريف',
+      text: designInput.text || '',
+      source: designInput.source || 'مصدر معتمد',
+      colorTheme: designInput.colorTheme || 'emerald',
+      tags: designInput.tags ? (Array.isArray(designInput.tags) ? designInput.tags : designInput.tags.split(',')) : ['دعوة', 'تذكير'],
+      dateAdded: new Date().toISOString().split('T')[0]
+    };
+    setDesigns(prev => [newDesign, ...prev]);
+    showToast('تمت إضافة التصميم الإسلامي الجديد بنجاح!');
+  };
+
+  const deleteDesign = (id) => {
+    setDesigns(prev => prev.filter(d => d.id !== id));
+    showToast('تم حذف التصميم بنجاح');
+  };
+
   // Mark message replied
   const toggleMessageStatus = (id) => {
     setContactMessages(prev => prev.map(msg => {
@@ -339,6 +476,12 @@ export const AppProvider = ({ children }) => {
         projects,
         programs,
         media,
+        designs,
+        addDesign,
+        deleteDesign,
+        colorTheme,
+        setColorTheme,
+        changeColorTheme,
         donations,
         contactMessages,
         stats,
@@ -354,6 +497,9 @@ export const AppProvider = ({ children }) => {
         adminAuth,
         loginAdmin,
         logoutAdmin,
+        admins,
+        addAdmin,
+        deleteAdmin,
         addProject,
         updateProject,
         deleteProject,

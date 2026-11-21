@@ -56,7 +56,7 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-slate-300/90 leading-relaxed font-tajawal mt-2">
-              منصة رقمية ومؤسسية رائدة تعكس رسالة الفريق الإنسانية والتعليمية والقرآنية في المملكة العربية السعودية، مستلهمين التوجيه النبوي الشريف في بناء الإنسان وخدمة كتاب الله وغرس الأثر المستدام.
+              {teamData.footerDesc || "منصة رقمية ومؤسسية رائدة تعكس رسالة الفريق الإنسانية والتعليمية والقرآنية في المملكة العربية السعودية، مستلهمين التوجيه النبوي الشريف في بناء الإنسان وخدمة كتاب الله وغرس الأثر المستدام."}
             </p>
 
             <div className="flex items-center gap-2 text-xs text-utrujjah-gold-300/90 bg-emerald-900/40 border border-utrujjah-gold-500/20 px-3 py-2 rounded-xl w-fit">
@@ -128,6 +128,7 @@ export default function Footer() {
                 { id: 'about', label: 'عن أترجة ورسالتنا' },
                 { id: 'activities', label: 'الأنشطة وبثوث TikTok' },
                 { id: 'telegram', label: 'قناة التليجرام النسائية' },
+                { id: 'designs', label: 'تصاميم دعوية للهاتف' },
                 { id: 'programs', label: 'برامجنا ومساعداتنا' },
                 { id: 'projects', label: 'المشاريع القائمة' },
                 { id: 'zakat', label: 'حاسبة الزكاة الشرعية' },

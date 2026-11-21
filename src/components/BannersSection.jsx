@@ -42,6 +42,28 @@ export default function BannersSection() {
     <section className="py-12 bg-gradient-to-b from-white to-emerald-50/40 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* Section Header: Title & "المزيد" Link */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-2 border-b border-emerald-900/10 dark:border-emerald-800/30">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-utrujjah-green-800 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-800/40 mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-utrujjah-gold-500" />
+              <span>مساحات الخير والأثر</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-alexandria text-utrujjah-green-950 dark:text-white">
+              من المشاريع والمبادرات
+            </h2>
+          </div>
+          
+          <button
+            onClick={() => navigateTo('projects')}
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-utrujjah-green-800 dark:text-utrujjah-gold-400 hover:text-utrujjah-gold-600 dark:hover:text-utrujjah-gold-300 transition-colors group self-start sm:self-end py-1 px-2.5 rounded-lg hover:bg-emerald-50 dark:hover:bg-white/5"
+            title="عرض كافة المشاريع والمبادرات"
+          >
+            <span>المزيد</span>
+            <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {banners.map((item) => {
             const Icon = item.icon;

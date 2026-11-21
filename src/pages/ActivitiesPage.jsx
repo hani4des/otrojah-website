@@ -81,23 +81,23 @@ export default function ActivitiesPage() {
       
       {/* Top Banner: Utrujjah Logo Merged with TikTok Logo */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-r from-utrujjah-green-950 via-[#0a2f1c] to-black border-2 border-utrujjah-gold-500/40 shadow-2xl p-8 sm:p-12 lg:p-16 text-white">
+        <div className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] bg-gradient-to-r from-utrujjah-green-950 via-[#0a2f1c] to-black border-2 border-utrujjah-gold-500/40 shadow-2xl p-6 sm:p-8 lg:p-10 text-white">
           
           {/* Subtle Arabesque and Glows */}
           <div className="absolute inset-0 bg-islamic-stars opacity-15 pointer-events-none" />
           <div className="absolute -top-24 right-1/4 w-96 h-96 bg-utrujjah-gold-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 left-1/4 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
             
             {/* Right: Text and Announcement */}
-            <div className="space-y-4 text-center lg:text-right max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 border border-utrujjah-gold-400/30 text-utrujjah-gold-300 text-xs font-bold backdrop-blur-md">
-                <Sparkles className="w-4 h-4 text-utrujjah-gold-400 animate-pulse" />
+            <div className="space-y-3.5 text-center lg:text-right max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/40 border border-utrujjah-gold-400/30 text-utrujjah-gold-300 text-[11px] sm:text-xs font-bold backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-utrujjah-gold-400 animate-pulse" />
                 <span>الأنشطة والبثوث التفاعلية الحية</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-alexandria text-white leading-tight">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-black font-alexandria text-white leading-snug">
                 أنشطة فريق أترجة
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-utrujjah-gold-300 via-utrujjah-gold-400 to-amber-200">
@@ -105,33 +105,33 @@ export default function ActivitiesPage() {
                 </span>
               </h1>
 
-              <p className="text-slate-200 text-sm sm:text-base leading-relaxed font-tajawal">
+              <p className="text-slate-200 text-xs sm:text-sm leading-relaxed font-tajawal">
                 انضم إلى برامجنا القرآنية المباشرة، وحلقات تلاوة وتدبر كتاب الله، والمحاضرات الأسبوعية التفاعلية مع نخبة من القراء والمربين.
               </p>
 
               {/* Direct Follow Button */}
-              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+              <div className="pt-1 flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <a
                   href="https://www.tiktok.com/@otrojah3"
                   target="_blank"
                   rel="noreferrer"
-                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-black via-slate-900 to-rose-950 text-white font-bold text-sm sm:text-base flex items-center gap-3 border border-rose-500/40 shadow-xl hover:shadow-rose-900/40 hover:scale-105 active:scale-95 transition-all"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-black via-slate-900 to-rose-950 text-white font-bold text-xs sm:text-sm flex items-center gap-2.5 border border-rose-500/40 shadow-lg hover:shadow-rose-900/40 hover:scale-105 active:scale-95 transition-all"
                 >
-                  <TikTokIcon className="w-5 h-5 text-rose-400" />
+                  <TikTokIcon className="w-4 h-4 text-rose-400" />
                   <span>متابعة حساب أترجة على TikTok (@otrojah3)</span>
-                  <ExternalLink className="w-4 h-4 opacity-75" />
+                  <ExternalLink className="w-3.5 h-3.5 opacity-75" />
                 </a>
               </div>
             </div>
 
             {/* Left: Professional Merged Badges (Utrujjah Logo + TikTok Emblem) */}
-            <div className="flex items-center justify-center gap-4 sm:gap-6 flex-shrink-0">
+            <div className="flex items-center justify-center gap-3 sm:gap-5 flex-shrink-0">
               
               {/* Utrujjah Official Circular Logo */}
               <div className="relative group">
                 <div className="absolute inset-0 rounded-full bg-utrujjah-gold-500 blur-xl opacity-40 group-hover:opacity-75 transition-opacity" />
-                <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-2 bg-gradient-to-tr from-utrujjah-gold-400 via-emerald-600 to-utrujjah-gold-500 shadow-2xl">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white p-1">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1.5 bg-gradient-to-tr from-utrujjah-gold-400 via-emerald-600 to-utrujjah-gold-500 shadow-xl">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-white p-0.5">
                     <img
                       src="/logo-circle.png"
                       alt="فريق أترجة"
@@ -139,30 +139,30 @@ export default function ActivitiesPage() {
                     />
                   </div>
                 </div>
-                <span className="block text-center text-xs font-bold text-utrujjah-gold-300 mt-2 font-alexandria">
+                <span className="block text-center text-[11px] sm:text-xs font-bold text-utrujjah-gold-300 mt-1.5 font-alexandria">
                   فريق أترجة
                 </span>
               </div>
 
               {/* Seamless Elegant Connector */}
               <div className="flex flex-col items-center justify-center gap-1">
-                <span className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-utrujjah-gold-400 to-rose-500 rounded-full" />
-                <div className="w-8 h-8 rounded-full bg-black/60 border border-white/20 text-utrujjah-gold-300 flex items-center justify-center text-xs font-black">
+                <span className="w-6 sm:w-8 h-0.5 bg-gradient-to-r from-utrujjah-gold-400 to-rose-500 rounded-full" />
+                <div className="w-6 h-6 rounded-full bg-black/60 border border-white/20 text-utrujjah-gold-300 flex items-center justify-center text-[10px] font-black">
                   ✕
                 </div>
-                <span className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-utrujjah-gold-400 to-rose-500 rounded-full" />
+                <span className="w-6 sm:w-8 h-0.5 bg-gradient-to-r from-utrujjah-gold-400 to-rose-500 rounded-full" />
               </div>
 
               {/* TikTok Luxury Emblem Badge */}
               <div className="relative group">
                 <div className="absolute inset-0 rounded-full bg-rose-500 blur-xl opacity-40 group-hover:opacity-75 transition-opacity" />
-                <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-2 bg-gradient-to-tr from-slate-900 via-black to-rose-600 shadow-2xl border border-rose-500/40 flex items-center justify-center">
-                  <div className="w-full h-full rounded-full bg-gradient-to-b from-slate-950 to-black flex flex-col items-center justify-center p-3 text-white border border-white/10">
-                    <TikTokIcon className="w-12 h-12 text-white" />
-                    <span className="text-[10px] font-black tracking-wider text-rose-400 mt-1 uppercase">TikTok</span>
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1.5 bg-gradient-to-tr from-slate-900 via-black to-rose-600 shadow-xl border border-rose-500/40 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-gradient-to-b from-slate-950 to-black flex flex-col items-center justify-center p-2 text-white border border-white/10">
+                    <TikTokIcon className="w-8 h-8 text-white" />
+                    <span className="text-[9px] font-black tracking-wider text-rose-400 mt-0.5 uppercase">TikTok</span>
                   </div>
                 </div>
-                <span className="block text-center text-xs font-bold text-rose-300 mt-2 font-alexandria">
+                <span className="block text-center text-[11px] sm:text-xs font-bold text-rose-300 mt-1.5 font-alexandria">
                   @otrojah3
                 </span>
               </div>

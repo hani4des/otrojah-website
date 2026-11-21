@@ -39,11 +39,11 @@ export default function ProgramsPage() {
             <span>مسارات الإحسان المتكاملة</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-alexandria text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-alexandria text-white">
             برامج ومساعدات فريق أترجة
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-200 font-tajawal max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-200 font-tajawal max-w-2xl mx-auto leading-relaxed">
             منظومة متكاملة من 7 برامج نوعية تلبي الحاجات التنموية والإنسانية والقرآنية في مجتمعنا، وفق ضوابط مهنية وحوكمة شفافة.
           </p>
         </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import HeroSlider from '../components/HeroSlider';
+import NewsTickerBar from '../components/NewsTickerBar';
+import LiveBannersSection from '../components/LiveBannersSection';
 import BannersSection from '../components/BannersSection';
 import AboutOverviewSection from '../components/AboutOverviewSection';
 import ProgramsSection from '../components/ProgramsSection';
@@ -14,25 +16,31 @@ export default function HomePage() {
       {/* 1. Hero Slider */}
       <HeroSlider />
 
-      {/* 2. Three Feature Banners */}
+      {/* 1.1 News Ticker Bar (Placed directly under the big slider) */}
+      <NewsTickerBar />
+
+      {/* 2. Three Live Quranic & Broadcast Banners */}
+      <LiveBannersSection />
+
+      {/* 3. Three Institutional Banners */}
       <BannersSection />
 
-      {/* 3. About Overview */}
+      {/* 4. About Overview */}
       <AboutOverviewSection />
 
-      {/* 4. Programs & Aid (7 Programs) */}
+      {/* 5. Programs & Aid (7 Programs) */}
       <ProgramsSection />
 
-      {/* 5. Active Projects with Live Meters */}
+      {/* 6. Active Projects with Live Meters */}
       <ProjectsSection />
 
-      {/* 6. Statistics & Field Impact */}
+      {/* 7. Statistics & Field Impact */}
       <StatsSection />
 
-      {/* 7. Media Center Highlights */}
+      {/* 8. Media Center Highlights */}
       <MediaSection />
 
-      {/* 8. Verified Location & Map */}
+      {/* 9. Verified Location & Map */}
       <MapSection />
     </div>
   );

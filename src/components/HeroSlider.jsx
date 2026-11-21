@@ -10,11 +10,13 @@ import {
   Sparkles,
   BookOpen,
   Calculator,
-  ShieldCheck
+  ShieldCheck,
+  Radio
 } from 'lucide-react';
+import { TikTokIcon } from './SocialIcons';
 
 export default function HeroSlider() {
-  const { heroSlides, navigateTo } = useApp();
+  const { heroSlides, navigateTo, teamData } = useApp();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const touchStartX = useRef(0);
@@ -83,10 +85,32 @@ export default function HeroSlider() {
           {/* Text and Actions (Col 1-7) - Proportional Font Sizes */}
           <div className="lg:col-span-8 space-y-5 text-right animate-fadeIn">
             
-            {/* Slogan Pill / Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-utrujjah-gold-500/20 border border-utrujjah-gold-400/40 text-utrujjah-gold-300 text-xs font-semibold backdrop-blur-sm shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-utrujjah-gold-300 animate-spin" style={{ animationDuration: '6s' }} />
-              <span>{slide.badge}</span>
+            {/* Slogan Pill / Badge & Mobile Live Badge */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-utrujjah-gold-500/20 border border-utrujjah-gold-400/40 text-utrujjah-gold-300 text-xs font-semibold backdrop-blur-sm shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-utrujjah-gold-300 animate-spin" style={{ animationDuration: '6s' }} />
+                <span>{slide.badge}</span>
+              </div>
+
+              {teamData?.liveBroadcast?.enabled !== false && (
+                <a
+                  href={teamData?.liveBroadcast?.url || "https://www.tiktok.com/@otrojah3"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lg:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white text-xs font-bold shadow-md shadow-red-600/30 border border-white/60 hover:scale-105 active:scale-95 transition-all"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-90"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                  </span>
+                  <Radio className="w-3.5 h-3.5 text-white animate-pulse" />
+                  <span>{teamData?.liveBroadcast?.title || 'البث المباشر يعمل الآن'}</span>
+                  <span className="inline-flex items-center gap-1 bg-black/40 px-1.5 py-0.5 rounded-full text-[10px] border border-white/20">
+                    <TikTokIcon className="w-2.5 h-2.5 text-white fill-white" />
+                    <span>TikTok</span>
+                  </span>
+                </a>
+              )}
             </div>
 
             {/* Main Headline - Refined Font Size */}
@@ -179,6 +203,30 @@ export default function HeroSlider() {
                 </svg>
               </div>
 
+              {/* Live Broadcast Badge / Indicator */}
+              {teamData?.liveBroadcast?.enabled !== false && (
+                <a
+                  href={teamData?.liveBroadcast?.url || "https://www.tiktok.com/@otrojah3"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute -top-7 left-1/2 -translate-x-1/2 z-30 group/live flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white shadow-xl shadow-red-600/50 border-2 border-white/90 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-md cursor-pointer hover:shadow-red-500/70"
+                  title="البث المباشر يعمل الآن على TikTok - انقر للمتابعة"
+                >
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-90"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                  </span>
+                  <Radio className="w-4 h-4 text-white animate-pulse" />
+                  <span className="text-xs font-black font-alexandria tracking-tight whitespace-nowrap">
+                    {teamData?.liveBroadcast?.title || 'البث المباشر يعمل الآن'}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 bg-black/45 px-2.5 py-0.5 rounded-full border border-white/25 text-[11px] font-bold text-white shadow-inner">
+                    <TikTokIcon className="w-3.5 h-3.5 text-white fill-white" />
+                    <span>TikTok</span>
+                  </span>
+                </a>
+              )}
+
               {/* Glass Frame Card */}
               <div className="relative w-72 h-72 rounded-full p-2.5 bg-gradient-to-b from-utrujjah-gold-400/40 via-emerald-800/20 to-utrujjah-gold-600/30 backdrop-blur-md border border-utrujjah-gold-400/50 flex items-center justify-center shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white p-2 flex items-center justify-center shadow-inner">
@@ -196,9 +244,9 @@ export default function HeroSlider() {
                 <span className="text-xs font-bold">خدمة القرآن الكريم</span>
               </div>
 
-              <div className="absolute -top-3 -left-4 bg-utrujjah-green-900/95 border border-utrujjah-gold-400/60 text-utrujjah-gold-200 px-3.5 py-1.5 rounded-2xl shadow-xl flex items-center gap-1.5 backdrop-blur-md">
+              <div className="absolute top-6 -left-6 bg-utrujjah-green-900/95 border border-utrujjah-gold-400/60 text-utrujjah-gold-200 px-3.5 py-1.5 rounded-2xl shadow-xl flex items-center gap-1.5 backdrop-blur-md">
                 <ShieldCheck className="w-4 h-4 text-utrujjah-gold-400" />
-                <span className="text-xs font-bold">مرخص ومعتمد رسمياً</span>
+                <span className="text-xs font-bold">فريق تطوعي طموح</span>
               </div>
 
             </div>

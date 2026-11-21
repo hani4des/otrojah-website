@@ -49,11 +49,11 @@ export default function MediaPage() {
             <span>نافذتكم على أنشطة وإنجازات الفريق</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-alexandria text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-alexandria text-white">
             المركز الإعلامي والتوثيقي
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-200 font-tajawal max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-200 font-tajawal max-w-2xl mx-auto leading-relaxed">
             تغطيات حية، ومقالات معرفية، وتقارير الشفافية المالية والإدارية، ومعارض الصور التوثيقية الملتزمة بالهوية الإسلامية.
           </p>
         </div>

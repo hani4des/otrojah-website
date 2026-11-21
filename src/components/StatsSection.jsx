@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import StatsCharts from './StatsCharts';
 import {
   Users,
   CheckCircle2,
@@ -74,6 +75,11 @@ export default function StatsSection() {
               </div>
             );
           })}
+        </div>
+
+        {/* Interactive Data Visualization Chart (Item 6) */}
+        <div className="mt-14">
+          <StatsCharts isDarkBg={true} />
         </div>
 
         {/* Bottom Governance Banner */}
